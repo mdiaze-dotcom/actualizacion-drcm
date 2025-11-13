@@ -32,6 +32,8 @@ def cargar_datos():
 
     return df
 
+
+# --- CARGAR LOS DATOS ---
 df = cargar_datos()
 
 if df.empty:
@@ -50,7 +52,7 @@ df_sede = df[df["Sede"] == sede_sel].copy()
 st.subheader(f"📍 Expedientes de la sede: {sede_sel}")
 st.caption("Ingrese o actualice la fecha de pase a DRCM según corresponda.")
 
-# --- FUNCIONES AUXILIARES ---
+# --- FUNCIÓN AUXILIAR PARA MOSTRAR FECHAS ---
 def safe_strftime(val):
     """Convierte fecha a texto o muestra '---' si no hay valor."""
     try:
@@ -91,18 +93,31 @@ else:
             )
 
         with col4:
-            # --- BOTÓN DE GUARDADO ---
             if st.button("Guardar", key=f"save_{i}"):
+                # --- BLOQUE TRY COMPLETO ---
                 try:
-                    # Convertir a datetime (00:00:00)
+                    # Convertir la fecha seleccionada a datetime
                     fecha_guardar = pd.to_datetime(nueva_fecha)
+
+                    # Actualizar el registro en el DataFrame original
                     df.loc[i, "Fecha Pase DRCM"] = fecha_guardar
 
-                    # Limpieza de tipos antes de guardar
+                    # Forzar tipos correctos antes de guardar
                     df["Fecha Trámite"] = pd.to_datetime(df["Fecha Trámite"], errors="coerce")
                     df["Fecha Pase DRCM"] = pd.to_datetime(df["Fecha Pase DRCM"], errors="coerce")
 
-                    # Guardar de manera segura
+                    # Guardar cambios en el archivo Excel
                     df.to_excel(archivo, index=False, engine="openpyxl")
 
+                    # Mostrar confirmación
                     st.success(f"✅ Expediente {row.get('N° Expediente', '')} actualizado correctamente.")
+
+                    # Limpiar caché para que se vean los cambios
+                    st.cache_data.clear()
+
+                except Exception as e:
+                    st.error(f"❌ Error al guardar los datos: {e}")
+
+# --- PIE DE PÁGINA ---
+st.divider()
+st.caption("Desarrollado por el equipo de análisis de datos · Dirección de Gestión de Información")

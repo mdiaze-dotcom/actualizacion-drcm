@@ -52,9 +52,18 @@ for i, row in df_sede.iterrows():
             key=f"fecha_{i}"
         )
     with col4:
-        if st.button("Guardar", key=f"save_{i}"):
-            df.loc[i, "Fecha Pase DRCM"] = nueva_fecha
-            df.to_excel(archivo, index=False)
-            st.success(f"✅ Expediente {row['N° Expediente']} actualizado correctamente.")
+       if st.button("Guardar", key=f"save_{i}"):
+    # Convertir correctamente a datetime
+    fecha_guardar = pd.to_datetime(nueva_fecha)
+    df.loc[i, "Fecha Pase DRCM"] = fecha_guardar
+
+    # Asegurar que todas las fechas tengan formato válido antes de guardar
+    df["Fecha Trámite"] = pd.to_datetime(df["Fecha Trámite"], errors="coerce")
+    df["Fecha Pase DRCM"] = pd.to_datetime(df["Fecha Pase DRCM"], errors="coerce")
+
+    # Guardar sin conflictos de tipo
+    df.to_excel(archivo, index=False, engine="openpyxl")
+
+    st.success(f"✅ Expediente {row['N° Expediente']} actualizado correctamente.")
 
 st.caption("💾 Los cambios se guardan directamente en el archivo Excel del servidor.")

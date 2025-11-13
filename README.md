@@ -1,25 +1,18 @@
-# 📑 Actualización de Fechas de Pase a DRCM
+# Aplicación Actualización Expedientes DRCM - Avanzada
 
-Aplicación desarrollada en Streamlit para que las sedes actualicen la fecha de pase de expedientes hacia la DRCM.
+Esta aplicación en Streamlit permite filtrar por **Dependencia** y actualizar la **Fecha Envío a DRCM** solo para expedientes con estado 'Pendiente'.
+- Formato de visualización de fechas: `dd/mm/yyyy`
+- Cálculo de 'Días restantes' = (Fecha Envío a DRCM o HOY) - Fecha de Expediente
+- Si 'Días restantes' >= 6 se indica en rojo en la interfaz.
+- Control de acceso simple: clave = DEPENDENCIA + '2025' (por ejemplo: LIMA2025).
 
-## 🚀 Cómo usar
+Archivos incluidos:
+- app.py (aplicación Streamlit)
+- expedientes.xlsx (ejemplo)
+- requirements.txt
+- README.md
 
-1. Seleccione su sede.
-2. Ingrese la clave correspondiente (ej. LIMA2025).
-3. Actualice las fechas de pase y presione "Guardar".
-
-Los cambios se guardan directamente en el archivo Excel.
-
-## 🛠️ Requisitos
-- pandas
-- openpyxl
-- streamlit
-
-## 🔄 Actualización de datos
-Para agregar nuevos expedientes, reemplace el archivo `expedientes.xlsx` en el repositorio y Streamlit actualizará automáticamente la app.
-
-## 🌐 Despliegue
-1. Suba esta carpeta a GitHub.
-2. En Streamlit Cloud, seleccione “New app”.
-3. Vincule su repositorio y elija el archivo `app.py`.
-4. Listo: la aplicación estará disponible en línea.
+Pasos para desplegar:
+1. Subir todos los archivos al repositorio GitHub.
+2. Conectar el repositorio en Streamlit Cloud y desplegar seleccionando app.py.
+3. Actualizar el archivo `expedientes.xlsx` directamente en el repositorio cuando haya nuevos expedientes.

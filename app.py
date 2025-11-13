@@ -9,7 +9,7 @@ st.set_page_config(page_title="Actualización Expedientes DRCM", layout="wide")
 st.title("📋 Actualización Consolidada de Expedientes - DRCM")
 
 # Ruta del archivo maestro en red (ajustar si cambia la ubicación)
-ARCHIVO = r"\\172.27.230.55\gu\Jefaturas Zonales\actualizacion_drcm\expedientes.xlsx"
+ARCHIVO = r"C:\Users\mdiaze\Desktop\actualizacion_drcm\expedientes.xlsx"
 
 # ---------------- FUNCIONES AUXILIARES ----------------
 @st.cache_data(ttl=60)

@@ -91,9 +91,10 @@ else:
             )
 
         with col4:
+            # --- BOTÓN DE GUARDADO ---
             if st.button("Guardar", key=f"save_{i}"):
                 try:
-                    # Convertir y actualizar
+                    # Convertir a datetime (00:00:00)
                     fecha_guardar = pd.to_datetime(nueva_fecha)
                     df.loc[i, "Fecha Pase DRCM"] = fecha_guardar
 
@@ -105,11 +106,3 @@ else:
                     df.to_excel(archivo, index=False, engine="openpyxl")
 
                     st.success(f"✅ Expediente {row.get('N° Expediente', '')} actualizado correctamente.")
-                    st.cache_data.clear()
-                except Exception as e:
-                    st.error(f"❌ Error al guardar: {e}")
-
-# --- PIE DE PÁGINA ---
-st.divider()
-st.caption("Desarrollado por el equipo de análisis de datos · Dirección de Gestión de Información")
-st.caption("💾 Los cambios se guardan directamente en el archivo Excel del servidor.")
